@@ -13,9 +13,9 @@ router.post('/admin/dash',
   passport.authenticate('local', {
     failureRedirect: '/login'
   }),
-  async function (req, res) {
+  function (req, res) {
     var email = req.body.username;
-    await User.find({
+    User.find({
         username: email
       },
       function (err, user) {
@@ -30,8 +30,8 @@ router.post('/admin/dash',
   });
 
 
-router.get('/admin/dash/:id', isAdm, async function (req, res) {
-  await Post.find({}, function (err, posts) {
+router.get('/admin/dash/:id', isAdm, function (req, res) {
+  Post.find({}, function (err, posts) {
     res.render('admpanel', {
       posts: posts
     });

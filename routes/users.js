@@ -4,9 +4,9 @@ const express = require('express'),
   User = require('../models/user');
 
 // Página do usuário
-router.get('/:id', isLoggedIn, async function (req, res) {
+router.get('/:id', isLoggedIn, function (req, res) {
   var id = req.params.id
-  await User.findById(id).populate('posts').populate('responses').exec(function (err, user) {
+  User.findById(id).populate('posts').populate('responses').exec(function (err, user) {
     console.log(user.responses[0])
     res.render('user', {
       user: user
@@ -15,13 +15,13 @@ router.get('/:id', isLoggedIn, async function (req, res) {
 
 });
 // Post da imagem e descrição na página do usuário
-router.post('/:id', async function (req, res) {
+router.post('/:id', function (req, res) {
   var id = req.params.id
 
   var img = req.body.imageDone
   var desc = req.body.descEdit
 
-  await User.findById(id, function (err, user) {
+  User.findById(id, function (err, user) {
     if (err) {
       console.log(err)
     } else {

@@ -16,14 +16,11 @@ const authRoutes = require('./routes/auth'),
 
 // Configuração mongoose:
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect('mongodb://igortheodoro12:igor@cluster0-shard-00-00-caej5.gcp.mongodb.net:27017,cluster0-shard-00-01-caej5.gcp.mongodb.net:27017,cluster0-shard-00-02-caej5.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority',{
-  useNewUrlParser: true,
-  useCreateIndex: true
-}).then(() => {
-  console.log('Conectado')
-}).catch(err => {
-  console.log("ERRO: ", err.message)
-})
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useCreateIndex', true);
+mongoose.connect(
+	'mongodb://igortheodoro12:igor@cluster0-shard-00-00-caej5.gcp.mongodb.net:27017,cluster0-shard-00-01-caej5.gcp.mongodb.net:27017,cluster0-shard-00-02-caej5.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority'
+);
 
 // Configuração router
 app.use(flash());
@@ -55,8 +52,10 @@ app.use(usersRoutes);
 app.use(adminRoutes);
 
 // Rota para home
-app.get('/', async function(req, res) {
-	res.render('home', { messages: req.flash('error') });
+app.get('/', function(req, res) {
+	res.render('home', {
+		messages: req.flash('error')
+	});
 });
 
 // Rota não existente
@@ -65,6 +64,6 @@ app.get('*', function(req, res) {
 });
 
 //Listen
-app.listen(process.env.PORT || 5000, function() {
-	console.log('Servidor iniciado !');
+app.listen(process.env.PORT || 5000, function() {
+	console.log('Servidor iniciado!');
 });

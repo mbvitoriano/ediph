@@ -4,7 +4,7 @@ const express = require('express'),
   passport = require('passport');
 
 //Rotas de login
-router.get('/login', async function (req, res) {
+router.get('/login', function (req, res) {
   res.render('login', {
     messages: req.flash('error')
   });
