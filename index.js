@@ -17,7 +17,7 @@ const authRoutes = require('./routes/auth'),
 mongoose.Promise = global.Promise;
 
 // Configuração mongoose:
-mongoose.set('useUnifiedTopology', true);
+mongoose.set('useUnifiedTopology', false);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
 mongoose.connect(
