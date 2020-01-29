@@ -15,10 +15,15 @@ const authRoutes = require('./routes/auth'),
 	adminRoutes = require('./routes/admin');
 
 // Configuração mongoose:
-mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
-mongoose.set('useCreateIndex', true);
-mongoose.connect('mongodb://localhost/ediph');
+mongoose.connect('mongodb://igortheodoro12:igor@cluster0-shard-00-00-caej5.gcp.mongodb.net:27017,cluster0-shard-00-01-caej5.gcp.mongodb.net:27017,cluster0-shard-00-02-caej5.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority',{
+  useNewUrlParser: true,
+  useCreateIndex: true
+}).then(() => {
+  console.log('Conectado')
+}).catch(err => {
+  console.log("ERRO: ", err.message)
+})
 
 // Configuração router
 app.use(flash());
@@ -60,6 +65,6 @@ app.get('*', function(req, res) {
 });
 
 //Listen
-app.listen(process.env.PORT || 5000, function() {
+app.listen(process.env.PORT || 5000, function() {
 	console.log('Servidor iniciado!');
 });
