@@ -55,7 +55,7 @@ app.use(usersRoutes);
 app.use(adminRoutes);
 
 // Rota para home
-app.get('/', function(req, res) {
+app.get('/', async function(req, res) {
 	res.render('home', { messages: req.flash('error') });
 });
 

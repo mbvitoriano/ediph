@@ -1,9 +1,9 @@
 const express = require('express'),
-      router = express.Router(),
-      User = require('../models/user'),
-      Post = require('../models/post'),
-      Resp = require('../models/response'),
-      passport = require('passport');
+  router = express.Router(),
+  User = require('../models/user'),
+  Post = require('../models/post'),
+  Resp = require('../models/response'),
+  passport = require('passport');
 
 router.get('/admin/dash', function (req, res) {
   res.render('adm')
@@ -13,9 +13,9 @@ router.post('/admin/dash',
   passport.authenticate('local', {
     failureRedirect: '/login'
   }),
-  function (req, res) {
+  async function (req, res) {
     var email = req.body.username;
-    User.find({
+    await User.find({
         username: email
       },
       function (err, user) {
@@ -30,8 +30,8 @@ router.post('/admin/dash',
   });
 
 
-router.get('/admin/dash/:id', isAdm, function (req, res) {
-  Post.find({}, function (err, posts) {
+router.get('/admin/dash/:id', isAdm, async function (req, res) {
+  await Post.find({}, function (err, posts) {
     res.render('admpanel', {
       posts: posts
     });

@@ -1,18 +1,20 @@
 const express = require('express'),
-      router = express.Router(),
-      User = require('../models/user'),
-      passport = require('passport');
+  router = express.Router(),
+  User = require('../models/user'),
+  passport = require('passport');
 
 //Rotas de login
-router.get('/login',function (req, res) {
-  res.render('login', {messages: req.flash('error')});
+router.get('/login', async function (req, res) {
+  res.render('login', {
+    messages: req.flash('error')
+  });
 });
 
 router.post(
   '/login',
   passport.authenticate('local', {
     failureRedirect: '/login',
-    failureFlash : true,
+    failureFlash: true,
     failureFlash: 'E-mail ou senha inválidos.'
   }),
   function (req, res) {
@@ -31,7 +33,7 @@ router.post(
   }
 );
 //Rota de registro
-router.post('/', function (req, res) {// Faz o middleware, que faz um find para ver se o email existe
+router.post('/', function (req, res) { // Faz o middleware, que faz um find para ver se o email existe
   var email = req.body.username;
   var pass = req.body.password;
   var nome = req.body.nome;
@@ -64,9 +66,9 @@ router.post('/', function (req, res) {// Faz o middleware, que faz um find para 
 
 
 //Rota Lougout
-router.get('/logout', function(req, res){
+router.get('/logout', function (req, res) {
   req.logout()
-    res.redirect('/');
+  res.redirect('/');
 
 })
 

@@ -1,12 +1,12 @@
 const express = require('express'),
-      router = express.Router(),
-      Post = require('../models/post'),
-      User = require('../models/user');
+  router = express.Router(),
+  Post = require('../models/post'),
+  User = require('../models/user');
 
 // Página do usuário
-router.get('/:id', isLoggedIn, function (req, res) {
+router.get('/:id', isLoggedIn, async function (req, res) {
   var id = req.params.id
-  User.findById(id).populate('posts').populate('responses').exec(function (err, user) {
+  await User.findById(id).populate('posts').populate('responses').exec(function (err, user) {
     console.log(user.responses[0])
     res.render('user', {
       user: user
@@ -15,13 +15,13 @@ router.get('/:id', isLoggedIn, function (req, res) {
 
 });
 // Post da imagem e descrição na página do usuário
-router.post('/:id', function (req, res) {
+router.post('/:id', async function (req, res) {
   var id = req.params.id
 
   var img = req.body.imageDone
   var desc = req.body.descEdit
 
-  User.findById(id, function (err, user) {
+  await User.findById(id, function (err, user) {
     if (err) {
       console.log(err)
     } else {
