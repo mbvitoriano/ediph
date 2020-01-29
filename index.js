@@ -17,11 +17,18 @@ const authRoutes = require('./routes/auth'),
 mongoose.Promise = global.Promise;
 
 // Configuração mongoose:
-mongoose.set('useUnifiedTopology', false);
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useCreateIndex', true);
 mongoose.connect(
-	'mongodb://igortheodoro12:igor@cluster0-shard-00-00-caej5.gcp.mongodb.net:27017,cluster0-shard-00-01-caej5.gcp.mongodb.net:27017,cluster0-shard-00-02-caej5.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority'
+	'mongodb://igortheodoro12:igor@cluster0-shard-00-00-caej5.gcp.mongodb.net:27017,cluster0-shard-00-01-caej5.gcp.mongodb.net:27017,cluster0-shard-00-02-caej5.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority',
+	{
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		useFindAndModify: false,
+		useCreateIndex: true,
+		dbName: 'database-name' // IMPORTANT TO HAVE IT HERE AND NOT IN CONNECTION STRING
+	},
+	(err) => {
+		throw err;
+	}
 );
 
 // Configuração router
