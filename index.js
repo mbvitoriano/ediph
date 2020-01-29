@@ -66,5 +66,5 @@ app.get('*', function(req, res) {
 
 //Listen
 app.listen(process.env.PORT || 5000, function() {
-	console.log('Servidor iniciado!');
+	console.log('Servidor iniciado !');
 });
