@@ -1,0 +1,47 @@
+<%- include('partials/header')%>
+
+<div class="auth">
+  <div class="container">
+    <div class="auth__inner">
+      <div class="auth__media">
+        <img class="logImage" src="./images/undraw_authentication.svg">
+        <img class="logImage" src="./images/undraw_login2.svg">
+        <img class="logImage" src="./images/undraw_mobile_login.svg">
+      </div>
+      <div class="auth__auth">
+        <h1 class="auth__title">Acesse sua conta</h1>
+        <p class="hero__text">Entre começar editar suas fotos com nossos designers.</p>
+        <p class="text__danger"><%= messages%></p>
+        <form method='post' action="/login" autocompelete="new-password" role="presentation" class="form">
+          <input name="email" class="fakefield">
+          <label for="email">E-mail</label>
+          <input type="text" name="username" id='email' placeholder="voce@exemplo.com">
+          <label for="password">Senha</label>
+          <input type="password" name="password" id='password' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;" autocomplete="off">
+          <button type='submit' class="button button__accent">Entrar</button>
+          <a href="#"><h6 class="left-align" >Esqueceu sua senha?</h6></a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+ var loginImage = function () { //Login image
+
+var log = document.querySelectorAll('.logImage')
+
+
+for (var i = 0; i < log.length; i++) {
+  log[i].style.display = 'none';
+}
+
+var num = Math.random() * log.length;
+log[parseInt(num)].style.display = 'block';
+
+}
+loginImage();
+
+</script>
+<%- include('partials/footer')%>

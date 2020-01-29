@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<div class="authOther">
+  <div class="container">
+    <% for(var i = 0; i < posts.length; i++){%>
+    <div class="info steps desc">
+      <h4><b>Postado em: </b> <%=  posts[i].date %> </h4>
+      <div class="steps">
+        <img class="expanded__image imgEdit" src="<%=  posts[i].image %>" alt="">
+        <p class="hero__text desc"> <b>Descrição:</b><i> <%=  posts[i].descricao %> </i></p>
+      </div>
+      <a target="_blank" class="desc" href="<%=  posts[i].image %>"><%=  posts[i].image %></a>
+    </div>
+    <form action="/admin/dash/<%=posts[i].userID %>/response" method="POST">
+      <label style="margin-top: 25px;">Url da edição: </label>
+      <input type="url" name="urlResponse">
+      <button>Enviar edição</button>
+    </form>
+
+
+    <%}%>
+  </div>
+</div>
+
+
+<%- include('partials/footer')%>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/style.css">
+  <title>Ediph</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+</head>
+
+<body>
+  <div class="navbar navbar--extended">
+    <nav class="nav__mobile"></nav>
+    <div class="container">
+      <div class="navbar__inner">
+        <a href="/" class="navbar__logo">Logo</a>
+        <nav class="navbar__menu">
+          <ul>
+            <li><a href="/logout">Sair</a></li>
+            <li><a href="#dropzone">Enviar fotos</a></li>
+          </ul>
+        </nav>
+        <div class="navbar__menu-mob"><a href="" id='toggle'><svg role="img" xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512">
+              <path fill="currentColor"
+                d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                class=""></path>
+            </svg></a></div>
+      </div>
+    </div>
+  </div>
+
+  <% if(user.active == false){ %>
+  <div class="steps landing__section hero auth">
+    <div class="container">
+      <h2 class="hero__title">Olá <%= user.nome %> vamos editar uma foto ?</h2>
+      <p>É só preencher os campos e deixar o resto com a gente</p>
+    </div>
+
+
+    <form class="form" action="/<%= user._id %>" method="POST">
+      <div class="container">
+        <div>
+          <label id="dropzone" class="dropzone labelFile" for="inputFile"><i class="fas fa-camera-retro"></i></br>
+            Selecione uma
+            foto.</label>
+          <input name="imgEdit" type="file" class="fakefield inputfile" id="inputFile">
+        </div>
+
+        <div>
+          <label class="hero__title center" for="descInput">Coloque uma descrição bem detalhada das coisas que você
+            deseja
+            mudar na sua fotografia.
+          </label>
+          <textarea name="descEdit" id="descInput" rows="7" placeholder="Como quer a edição ?"></textarea>
+        </div>
+
+        <button class="button button__accent">Enviar para edição</button>
+      </div>
+    </form>
+  </div>
+
+  <% }else{ %>
+
+  <div class="expanded landing__section">
+    <div class="container">
+      <div class="expanded__inner">
+        <div class="expanded__media">
+          <img src="./images/undraw_loading.svg" class="expanded__image done">
+        </div>
+        <div class="expanded__content">
+          <h2 class="expanded__title wait">É só esperar um tempinho.</h2>
+          <p class="expanded__text time">Seu
+            pedido será postado em alguns minutos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps landing__section hero authUser">
+    <div class="container">
+      <div class="postsImages">
+        <% for(var i = 0; i < user.posts.length; i++){ %>
+        <img class="imgEdit" src="<%= user.posts[i].image %>" alt="Imagem para edição">
+        <p class="steps desc"><strong><%= user.nome %>:</strong> <%= user.posts[i].descricao %>
+        </p>
+        <% if(user.responses[i]){ %>
+        <div class="responses" style="background-color: #e0e0e0; padding-top: 15px; border-radius: 30px;">
+          <img class="imgDone" src="<%= user.responses[i].link %>" alt="Imagem editada.">
+          <p class="steps"><strong><%= user.responses[i].author %>:</strong> <%= user.responses[i].text %></p>
+          <a target="_blank" class="button button__accent" href="<%= user.responses[i].link %>"
+            download="<%= user.responses[i].link %>">Clique para
+            baixar!</a>
+        </div>
+        <% } %>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <% } %>
+
+  <script type="text/javascript">
+    document.querySelector('.navbar--extended').style.background = "#3897F0"
+
+    setInterval(function () {
+      document.querySelector('.time').innerHTML =
+        'Seu pedido já está sendo editado por um profissional. Em instantes ele ficará pronto.'
+    }, 120000)
+
+    var resp = document.querySelector('.responses')
+
+    if (resp) {
+      document.querySelector('.wait').innerHTML = 'Seu pedido foi editado!'
+      document.querySelector('.time').innerHTML =
+        'O download da imagem encontra-se no fim da página. Obrigado por usar o Ediph.'
+      document.querySelector('.done').src = 'images/undraw_download.svg'
+    }
+  </script>
+  <script type="text/javascript" src="/imgur.js"></script>
+  <script type="text/javascript" src="/upload.js"></script>
+  <%- include('partials/footer') %>
