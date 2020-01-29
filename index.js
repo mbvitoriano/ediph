@@ -14,6 +14,8 @@ const authRoutes = require('./routes/auth'),
 	usersRoutes = require('./routes/users'),
 	adminRoutes = require('./routes/admin');
 
+mongoose.Promise = global.Promise;
+
 // Configuração mongoose:
 mongoose.set('useUnifiedTopology', true);
 mongoose.set('useNewUrlParser', true);
