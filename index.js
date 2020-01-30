@@ -10,6 +10,7 @@ const express = require('express'),
 	Post = require('./models/post'),
 	Resp = require('./models/response');
 
+
 const authRoutes = require('./routes/auth'),
 	usersRoutes = require('./routes/users'),
 	adminRoutes = require('./routes/admin');
@@ -17,18 +18,11 @@ const authRoutes = require('./routes/auth'),
 mongoose.Promise = global.Promise;
 
 // Configuração mongoose:
+mongoose.set('useUnifiedTopology', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useCreateIndex', true);
 mongoose.connect(
-	'mongodb://igortheodoro12:igor@cluster0-shard-00-00-caej5.gcp.mongodb.net:27017,cluster0-shard-00-01-caej5.gcp.mongodb.net:27017,cluster0-shard-00-02-caej5.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority',
-	{
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-		useCreateIndex: true,
-		dbName: 'database-name' // IMPORTANT TO HAVE IT HERE AND NOT IN CONNECTION STRING
-	},
-	(err) => {
-		throw err;
-	}
+	'mongodb://igortheodoro12:igor@cluster0-shard-00-00-caej5.gcp.mongodb.net:27017,cluster0-shard-00-01-caej5.gcp.mongodb.net:27017,cluster0-shard-00-02-caej5.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority'
 );
 
 // Configuração router
@@ -61,18 +55,18 @@ app.use(usersRoutes);
 app.use(adminRoutes);
 
 // Rota para home
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.render('home', {
 		messages: req.flash('error')
 	});
 });
 
 // Rota não existente
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
 	res.redirect('/');
 });
 
 //Listen
-app.listen(process.env.PORT || 5000, function() {
+app.listen(3000, function () {
 	console.log('Servidor iniciado!');
 });
