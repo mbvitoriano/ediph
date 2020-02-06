@@ -1,6 +1,6 @@
 # Ediph
 
-Webapp para postar imagens e administradores irão enviar de volta a imagem editada, conforme a descrição.
+Webapp para postar imagens e administradores irão enviar de volta a imagem editada, conforme a descrição também postada pelo usuário.
 
 ## Deployment
 
