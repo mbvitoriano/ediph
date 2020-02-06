@@ -10,7 +10,6 @@ const express = require('express'),
 	Post = require('./models/post'),
 	Resp = require('./models/response');
 
-
 const authRoutes = require('./routes/auth'),
 	usersRoutes = require('./routes/users'),
 	adminRoutes = require('./routes/admin');
@@ -55,18 +54,18 @@ app.use(usersRoutes);
 app.use(adminRoutes);
 
 // Rota para home
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
 	res.render('home', {
 		messages: req.flash('error')
 	});
 });
 
 // Rota não existente
-app.get('*', function (req, res) {
+app.get('*', function(req, res) {
 	res.redirect('/');
 });
 
 //Listen
-app.listen(3000, function () {
+app.listen(3000, function() {
 	console.log('Servidor iniciado!');
 });
